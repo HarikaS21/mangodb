@@ -49,7 +49,7 @@ const Dashboard = () => {
         return;
       }
 
-      const response = await axios.get('http://localhost:5000/api/resume', {  // ✅ Correct API URL
+      const response = await axios.get('https://mangodb-sbqv.onrender.com/api/resume', {  // ✅ Correct API URL
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -64,7 +64,7 @@ const Dashboard = () => {
   const handleDeleteResume = async (id) => {
     try {
       const token = localStorage.getItem('token'); // ✅ send token on delete also
-      await axios.delete(`http://localhost:5000/api/resume/${id}`, {
+      await axios.delete(`https://mangodb-sbqv.onrender.com/api/resume/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
