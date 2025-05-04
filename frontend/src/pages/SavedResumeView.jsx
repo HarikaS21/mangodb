@@ -17,7 +17,7 @@ const SavedResumeView = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5000/api/resume/${id}`, {
+      const response = await axios.get(`https://mangodb-sbqv.onrender.com/api/resume/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
