@@ -88,38 +88,36 @@ const ResumeBuilder = () => {
 
 
 
-  const saveResume = async () => {
+  const handleSaveResume = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You must be logged in to save a resume.');
+      return;
+    }
+  
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('Please login to save your resume!');
-        return;
-      }
-
-      const response = await axios.post('http://localhost:5000/api/resume/save', {
+      await axios.post('http://localhost:5000/api/resume/save', {
         templateType,
         resumeData: formData,
       }, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      if (response.status === 200 || response.status === 201) {
-        alert('Resume saved successfully to database!');
-      } else {
-        alert('Failed to save resume.');
-      }
+  
+      alert('Resume saved successfully!');
     } catch (error) {
-      console.error('Error saving resume:', error);
-      alert('Something went wrong while saving.');
+      console.error('Failed to save resume:', error.response?.data || error.message);
+      alert(error.response?.data?.message || 'Failed to save resume. Check console for details.');
     }
+    
   };
+  
 
   return (
     <div className="min-h-screen p-6 bg-gray-100">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold capitalize text-gray-800">Build {templateType} Resume</h1>
         <div className="flex gap-4">
-          <button onClick={saveResume} className="bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition">
+          <button onClick={handleSaveResume} className="bg-green-600 text-white px-5 py-2 rounded-md hover:bg-green-700 transition">
             Save Resume
           </button>
           <button onClick={downloadResume} className="bg-blue-600 text-white px-5 py-2 rounded-md hover:bg-blue-700 transition">
