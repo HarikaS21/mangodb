@@ -96,7 +96,7 @@ const ResumeBuilder = () => {
     }
   
     try {
-      await axios.post('http://localhost:5000/api/resume/save', {
+      await axios.post('https://mangodb-sbqv.onrender.com/api/resume/save', {
         templateType,
         resumeData: formData,
       }, {
